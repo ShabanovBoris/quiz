@@ -3,6 +3,9 @@
         <item name="colorOnPrimary">@color/black</item>
         <item name="colorOnSecondary">@color/black</item>
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:windowTranslucentNavigation">true</item>
+        <item name="android:forceDarkAllowed">false</item>
     </style>
 
     <style name="Theme.Quiz.First" parent="Theme.Quiz">
@@ -13,9 +16,10 @@
         <item name="colorSecondaryVariant">@color/deep_orange_100_light</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor">@color/deep_orange_100_dark</item>
+
     </style>
 
-    <style name="Theme.Quiz.Second" parent="Theme.Quiz">
+    <style name="Theme.Quiz.Fifth" parent="Theme.Quiz">
         <item name="colorPrimary">@color/yellow_100</item>
         <item name="colorPrimaryDark">@color/yellow_100_dark</item>
         <item name="colorPrimaryVariant">@color/yellow_100_dark</item>
@@ -24,4 +28,39 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor">@color/yellow_100_dark</item>
     </style>
+
+    <style name="Theme.Quiz.Third" parent="Theme.Quiz">
+        <item name="colorPrimary">@color/color1</item>
+        <item name="colorPrimaryDark">@color/color3</item>
+        <item name="colorPrimaryVariant">@color/color3</item>
+        <item name="colorSecondary">@color/color1</item>
+        <item name="colorSecondaryVariant">@color/color2</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor">@color/color3</item>
+    </style>
+
+
+
+    <style name="Theme.Quiz.Fourth" parent="Theme.Quiz">
+        <item name="colorPrimary">@color/color14</item>
+        <item name="colorPrimaryDark">@color/color16</item>
+        <item name="colorPrimaryVariant">@color/color16</item>
+        <item name="colorSecondary">@color/color14</item>
+        <item name="colorSecondaryVariant">@color/color15</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor">@color/color16</item>
+    </style>
+
+
+    <style name="Theme.Quiz.Second" parent="Theme.Quiz">
+        <item name="colorPrimary">@color/secondaryColor_600</item>
+        <item name="colorPrimaryDark">@color/secondaryDarkColor_700</item>
+        <item name="colorPrimaryVariant">@color/secondaryDarkColor_700</item>
+        <item name="colorSecondary">@color/secondaryColor_600</item>
+        <item name="colorSecondaryVariant">@color/secondaryLightColor_500</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor">@color/secondaryDarkColor_700</item>
+    </style>
+
+
 </resources>

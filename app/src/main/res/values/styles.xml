@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="radio_button_style">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingHorizontal">16dp</item>
+        <item name="android:textColor">@color/radio_button_stroke</item>
+        <item name="android:background">@drawable/stroke</item>
+        <item name="android:buttonTint">@color/radio_button_stroke</item>
+        <item name="android:layout_marginVertical">8dp</item>
+        <item name="android:textColor">?attr/colorOnPrimary</item>
+        <item name="android:textAppearance">@style/TextAppearance.MaterialComponents.Body2</item>
+
+    </style>
+</resources>
