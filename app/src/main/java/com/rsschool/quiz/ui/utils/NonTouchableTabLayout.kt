@@ -19,8 +19,6 @@ class NonTouchableTabLayout @JvmOverloads constructor(
             requestLayout()
         }
 
-
-
     init {
         val attrsArray =
             context.theme.obtainStyledAttributes(attrs, R.styleable.NonTouchableTabLayout, 0, 0)
@@ -38,6 +36,4 @@ class NonTouchableTabLayout @JvmOverloads constructor(
     override fun onInterceptTouchEvent(event: MotionEvent): Boolean {
         return shouldEnableTabs?.not() ?: true
     }
-
-
 }
