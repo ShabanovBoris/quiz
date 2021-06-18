@@ -1,6 +1,5 @@
 package com.rsschool.quiz
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import com.rsschool.quiz.data.SimpleDataSource
 import com.rsschool.quiz.ui.pager.QuizBundle
@@ -14,7 +13,9 @@ class MainViewModel : ViewModel() {
     private val rightAnswers by lazy(LazyThreadSafetyMode.NONE) {
         repository.getRightAns()
     }
-    private val currentAnswers = mutableMapOf<Int, Int>()
+    private val _currentAnswers = mutableMapOf<Int, Int>()
+    val currentAnswers: Map<Int, Int> get() = _currentAnswers
+
     private var statistic = ""
 
     private var _state: MutableStateFlow<Result> = MutableStateFlow(Result.EmptyState())
@@ -33,11 +34,11 @@ class MainViewModel : ViewModel() {
 
     fun putAnswer(page: Int, ans: Int) {
         if (rightAnswers[page]-1 == ans) {
-            currentAnswers.put(page, 1)
+            _currentAnswers.put(page, 1)
         } else {
-            currentAnswers.put(page, 0)
+            _currentAnswers.put(page, 0)
         }
-        _state.value = Result.Success(currentAnswers)
+        _state.value = Result.Success(_currentAnswers)
 
 
         val quests = data.replayCache[0].keys.toList()
