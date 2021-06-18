@@ -43,7 +43,7 @@ class ResultFragment : BottomSheetDialogFragment() {
         }
         binding.bShare.setOnClickListener {
             Intent(Intent.ACTION_SEND).apply {
-                putExtra(Intent.EXTRA_TEXT, viewModel.getStatistic())
+                putExtra(Intent.EXTRA_TEXT, "Your result ${binding.tvResults.text}\n${viewModel.getStatistic()}")
                 type = "*/*"
 
                 if (resolveActivity(requireActivity().packageManager) != null) {
@@ -69,7 +69,7 @@ class ResultFragment : BottomSheetDialogFragment() {
                     .filter { it == 1 }
                     .size.toString()
 
-                binding.tvResults.text = "You earn $points/${result.resultMap.values.size} !"
+                binding.tvResults.text = "$points/${result.resultMap.values.size}"
 
             }
         }
