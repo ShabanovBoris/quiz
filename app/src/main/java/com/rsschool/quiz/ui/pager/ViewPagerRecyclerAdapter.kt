@@ -2,11 +2,14 @@ package com.rsschool.quiz.ui.pager
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.annotation.StyleRes
 import androidx.recyclerview.widget.RecyclerView
 import com.rsschool.quiz.R
 import com.rsschool.quiz.databinding.FragmentQuizBinding
+import com.rsschool.quiz.ui.utils.MenuManager
 
+//simplify type
 typealias QuizBundle = Map<String, List<String>>
 
 /**
@@ -22,6 +25,8 @@ class ViewPagerRecyclerAdapter(
 
     //Store values here for don't call values() every time
     private val types = ColorViewType.values()
+    //Helper for menu settings
+    private val menuManager = MenuManager()
 
     //listeners
     private var onChecked: ((checkedPosition: Int, page: Int) -> Unit)? = null
@@ -45,6 +50,8 @@ class ViewPagerRecyclerAdapter(
     }
 
 
+
+
     override fun getItemViewType(position: Int): Int =
         when (position) {
             0 -> ColorViewType.FIRST.ordinal
@@ -61,6 +68,7 @@ class ViewPagerRecyclerAdapter(
         fun bind(position: Int) {
             val currentQuestion = quizData?.keys?.toList()?.get(position)
             with(bindingItem) {
+                menuManager.handleMenuItemClick(bindingItem.toolbar, bindingItem.toolbar.context)
                 /**
                  * set views
                  */
@@ -104,7 +112,7 @@ class ViewPagerRecyclerAdapter(
                     }
                 }
                 //first screen settings
-                if (position == 0){
+                if (position == 0) {
                     toolbar.navigationIcon = null
                     previousButton.isEnabled = false
                 }
@@ -119,29 +127,31 @@ class ViewPagerRecyclerAdapter(
         _binding = FragmentQuizBinding
             .inflate(
                 // set theme into new view
-                LayoutInflater.from(parent.context).apply {
-                    context.theme.applyStyle(types[viewType].styleId, true)
-                },
+                LayoutInflater.from(parent.context.apply {
+                    theme.applyStyle(types[viewType].styleId, true)
+                }),
                 parent,
                 false
             )
-        return BasicViewHolder(binding)
-    }
 
-    override fun onBindViewHolder(holder: BasicViewHolder, position: Int) {
-        holder.bind(position)
-    }
+    return BasicViewHolder(binding)
+}
 
-    override fun getItemCount(): Int = quizData?.size ?: 0
+override fun onBindViewHolder(holder: BasicViewHolder, position: Int) {
+    holder.bind(position)
+
+}
+
+override fun getItemCount(): Int = quizData?.size ?: 0
 
 
-    enum class ColorViewType(@StyleRes val styleId: Int) {
-        FIRST(R.style.Theme_Quiz_First),
-        SECOND(R.style.Theme_Quiz_Second),
-        THIRD(R.style.Theme_Quiz_Third),
-        FOURTH(R.style.Theme_Quiz_Fourth),
-        FIFTH(R.style.Theme_Quiz_Fifth);
+enum class ColorViewType(@StyleRes val styleId: Int) {
+    FIRST(R.style.Theme_Quiz_First),
+    SECOND(R.style.Theme_Quiz_Second),
+    THIRD(R.style.Theme_Quiz_Third),
+    FOURTH(R.style.Theme_Quiz_Fourth),
+    FIFTH(R.style.Theme_Quiz_Fifth);
 
-        override fun toString(): String = styleId.toString()
-    }
+    override fun toString(): String = styleId.toString()
+}
 }

@@ -49,6 +49,7 @@ class LaunchFragment : Fragment() {
     private fun setUpViewPager() {
         val tableLayout = binding.tableLayout
         val viewPager = binding.viewPager
+        //tab names
         val names = mapOf(
             0 to "First",
             1 to "Second",
@@ -58,6 +59,7 @@ class LaunchFragment : Fragment() {
         )
 
         val adapter = ViewPagerRecyclerAdapter(pagerBinding)
+        //set buttons listener into adapter
         adapter.addOnCheckedListener { checkedPosition, page ->
             viewModel.putAnswer(page, checkedPosition)
         }
@@ -65,17 +67,15 @@ class LaunchFragment : Fragment() {
             findNavController().navigate(R.id.action_launchFragment_to_resultFragment)
         }
         adapter.addOnNavigateListener { currentPosition, isNext ->
-
             when (isNext) {
                 true -> viewPager.setCurrentItem(currentPosition + 1, true)
                 false -> viewPager.setCurrentItem(currentPosition - 1, true)
             }
-
         }
 
         //disable all interactions
         viewPager.isUserInputEnabled = false
-        tableLayout.isEnabled = false
+        tableLayout.shouldEnableTabs = false
 
         viewPager.adapter = adapter
 

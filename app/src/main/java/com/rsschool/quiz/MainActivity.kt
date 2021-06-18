@@ -24,10 +24,7 @@ class MainActivity : AppCompatActivity() {
 
 
     override fun onBackPressed() {
-        MaterialAlertDialogBuilder(
-            this,
-
-            ).apply {
+        MaterialAlertDialogBuilder(this).apply {
             setTitle("Warning")
             setMessage("If you quit your progress will be reset, you sure?")
             setNegativeButton(resources.getString(R.string.decline)) { dialog, which ->
@@ -36,7 +33,6 @@ class MainActivity : AppCompatActivity() {
             setPositiveButton(resources.getString(R.string.accept)) { dialog, which ->
                 super.onBackPressed()
             }
-
         }.show()
 
     }
