@@ -1,7 +1,6 @@
 package com.rsschool.quiz.ui.pager
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.StyleRes
 import androidx.recyclerview.widget.RecyclerView
@@ -21,10 +20,28 @@ class ViewPagerRecyclerAdapter(
     private val binding get() = requireNotNull(_binding)
     private var quizData: QuizBundle? = null
 
+    //Store values here for don't call values() every time
     private val types = ColorViewType.values()
+
+    //listeners
+    private var onChecked: ((checkedPosition: Int, page: Int) -> Unit)? = null
+    private var onSubmit: (() -> Unit)? = null
+    private var onNavigate: ((currentPosition: Int, isNext: Boolean) -> Unit)? = null
 
     fun setQuizData(map: QuizBundle) {
         quizData = map
+    }
+
+    fun addOnCheckedListener(action: (checkedPosition: Int, page: Int) -> Unit) {
+        onChecked = action
+    }
+
+    fun addOnSubmitListener(action: () -> Unit) {
+        onSubmit = action
+    }
+
+    fun addOnNavigateListener(action: (currentPosition: Int, isNext: Boolean) -> Unit) {
+        onNavigate = action
     }
 
 
@@ -38,17 +55,62 @@ class ViewPagerRecyclerAdapter(
             else -> throw IllegalArgumentException("invalid position")
         }
 
-    inner class BasicViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        fun bind(position: Int) {
-            val question = quizData?.keys?.toList()?.get(position)
-            binding.question.text = question
-            binding.optionOne.text = quizData?.get(question)?.get(0)
-            binding.optionTwo.text = quizData?.get(question)?.get(1)
-            binding.optionThree.text = quizData?.get(question)?.get(2)
-            binding.optionFour.text = quizData?.get(question)?.get(3)
-            binding.optionFive.text = quizData?.get(question)?.get(4)
+    inner class BasicViewHolder(private val bindingItem: FragmentQuizBinding) :
+        RecyclerView.ViewHolder(bindingItem.root) {
 
-            binding.toolbar.title = "Question ${position +1}"
+        fun bind(position: Int) {
+            val currentQuestion = quizData?.keys?.toList()?.get(position)
+            with(bindingItem) {
+                /**
+                 * set views
+                 */
+                question.text = currentQuestion
+                optionOne.text = quizData?.get(currentQuestion)?.get(0)
+                optionTwo.text = quizData?.get(currentQuestion)?.get(1)
+                optionThree.text = quizData?.get(currentQuestion)?.get(2)
+                optionFour.text = quizData?.get(currentQuestion)?.get(3)
+                optionFive.text = quizData?.get(currentQuestion)?.get(4)
+
+                toolbar.title = "Question ${position + 1}"
+                //if there is haven't checked buttons
+                if (radioGroup.checkedRadioButtonId == -1) {
+                    nextButton.isEnabled = false
+                }
+
+                //handle radio buttons changes
+                radioGroup.setOnCheckedChangeListener { group, checkedId ->
+                    nextButton.isEnabled = true
+                    //the passed lambda calls
+                    onChecked?.invoke(
+                        group.indexOfChild(group.findViewById(checkedId)),
+                        position
+                    )
+                }
+                //Navigation click listeners
+                nextButton.setOnClickListener {
+                    onNavigate?.invoke(position, true)
+                }
+                previousButton.setOnClickListener {
+                    onNavigate?.invoke(position, false)
+                }
+                toolbar.setNavigationOnClickListener {
+                    onNavigate?.invoke(position, false)
+                }
+                //last screen settings
+                if (position == itemCount - 1) {
+                    nextButton.text = "submit"
+                    nextButton.setOnClickListener {
+                        onSubmit?.invoke()
+                    }
+                }
+                //first screen settings
+                if (position == 0){
+                    toolbar.navigationIcon = null
+                    previousButton.isEnabled = false
+                }
+
+            }
+
         }
     }
 
@@ -56,14 +118,14 @@ class ViewPagerRecyclerAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BasicViewHolder {
         _binding = FragmentQuizBinding
             .inflate(
-                // set theme in the new view
+                // set theme into new view
                 LayoutInflater.from(parent.context).apply {
                     context.theme.applyStyle(types[viewType].styleId, true)
                 },
                 parent,
                 false
             )
-        return BasicViewHolder(binding.root)
+        return BasicViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: BasicViewHolder, position: Int) {

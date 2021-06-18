@@ -1,10 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph.xml"
     app:startDestination="@id/launchFragment">
     <fragment
         android:id="@+id/launchFragment"
         android:name="com.rsschool.quiz.ui.LaunchFragment"
-        android:label="LaunchFragment" />
+        android:label="LaunchFragment" >
+        <action
+            android:id="@+id/action_launchFragment_to_resultFragment"
+            app:destination="@id/resultFragment" />
+    </fragment>
+    <dialog
+        android:id="@+id/resultFragment"
+        android:name="com.rsschool.quiz.ui.ResultFragment"
+        android:label="fragment_result"
+        tools:layout="@layout/fragment_result" />
 </navigation>

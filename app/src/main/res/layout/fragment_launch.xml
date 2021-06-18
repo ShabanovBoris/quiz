@@ -13,7 +13,7 @@
         android:layout_height="match_parent"
         />
 
-    <com.google.android.material.tabs.TabLayout
+    <com.rsschool.quiz.ui.utils.NonTouchableTabLayout
         android:layout_marginTop="88dp"
         android:id="@+id/table_layout"
         android:layout_width="match_parent"

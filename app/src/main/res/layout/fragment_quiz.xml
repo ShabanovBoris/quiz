@@ -17,14 +17,15 @@
         app:layout_constraintEnd_toEndOf="parent"/>
 
     <View
-        android:id="@+id/toolbar_back"
+        android:id="@+id/toolbar_backgraound"
         android:layout_width="0dp"
         android:layout_height="64dp"
         android:background="@drawable/semioval_180"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginHorizontal="1dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/appBarLayout"/>
+        app:layout_constraintTop_toBottomOf="@+id/appBarLayout"
+        android:elevation="16dp"/>
 
     <View
         android:id="@+id/navigation_placeholder"
@@ -43,16 +44,19 @@
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/statusbar_placeholder">
+        app:layout_constraintTop_toBottomOf="@id/statusbar_placeholder"
+        app:elevation="24dp"
+
+        >
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:elevation="0dp"
             android:layout_height="?attr/actionBarSize"
             app:navigationContentDescription="Back to the previous question"
             app:navigationIcon="@drawable/ic_baseline_chevron_left_24"
-            app:title="Question 1"/>
+            app:title="Question 1"
+            app:menu="@menu/main_menu"/>
 
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -108,7 +112,8 @@
                 app:layout_constraintStart_toStartOf="@id/margin_start_guideline"
                 app:layout_constraintTop_toTopOf="@id/margin_top_guideline"
                 android:text="Est-ce qu'il travaille a Paris?"
-                android:textColor="?attr/colorOnPrimary"/>
+                android:textColor="?attr/colorOnPrimary"
+                android:elevation="16dp"/>
 
             <RadioGroup
                 android:id="@+id/radio_group"
@@ -167,7 +172,8 @@
         app:cornerRadius="16dp"
         android:text="Next"
         app:layout_constraintBottom_toTopOf="@id/navigation_placeholder"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:enabled="false"/>
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

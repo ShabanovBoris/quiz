@@ -2,9 +2,9 @@ package com.rsschool.quiz
 
 import android.os.Build
 import android.os.Bundle
-import android.view.Window
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 
 class MainActivity : AppCompatActivity() {
@@ -20,5 +20,24 @@ class MainActivity : AppCompatActivity() {
         }
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+    }
+
+
+    override fun onBackPressed() {
+        MaterialAlertDialogBuilder(
+            this,
+
+            ).apply {
+            setTitle("Warning")
+            setMessage("If you quit your progress will be reset, you sure?")
+            setNegativeButton(resources.getString(R.string.decline)) { dialog, which ->
+                dialog.dismiss()
+            }
+            setPositiveButton(resources.getString(R.string.accept)) { dialog, which ->
+                super.onBackPressed()
+            }
+
+        }.show()
+
     }
 }

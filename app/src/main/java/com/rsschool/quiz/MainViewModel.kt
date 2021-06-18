@@ -30,7 +30,7 @@ class MainViewModel : ViewModel() {
     }
 
     fun putAnswer(page: Int, ans: Int) {
-        if (rightAnswers[page] == ans) {
+        if (rightAnswers[page]-1 == ans) {
             currentAnswers.put(page, 1)
         } else {
             currentAnswers.put(page, 0)
@@ -41,7 +41,7 @@ class MainViewModel : ViewModel() {
 
 
 sealed class Result() {
-    class Success(result: Map<Int, Int>) : Result()
+    class Success(val resultMap: Map<Int, Int>) : Result()
     class Error() : Result()
     class EmptyState() : Result()
 }
