@@ -7,10 +7,33 @@
     android:id="@+id/quiz_root_layout"
     android:fitsSystemWindows="true">
 
+    <TextView
+        android:id="@+id/tv_page"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:elevation="16dp"
+        android:text="Question"
+        android:textColor="?attr/colorOnPrimary"
+        android:textSize="32dp"
+        android:paddingTop="4dp"
+        android:paddingStart="64dp"
+        android:background="?attr/colorPrimaryDark"
+        app:layout_constraintBottom_toTopOf="@+id/toolbar_backgraound"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/statusbar_placeholder" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/appBarLayout"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="@dimen/statusbar_placeholder_height"/>
+
     <View
         android:id="@+id/statusbar_placeholder"
         android:layout_width="0dp"
-        android:layout_height="32dp"
+        android:layout_height="@dimen/statusbar_placeholder_height"
         android:background="?attr/colorPrimary"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -24,6 +47,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginHorizontal="1dp"
         app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="?attr/actionBarSize"
         app:layout_constraintTop_toBottomOf="@+id/appBarLayout"
         android:elevation="16dp"/>
 
@@ -38,27 +62,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         />
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/appBarLayout"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/statusbar_placeholder"
-        app:elevation="24dp"
 
-        >
-
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            app:navigationContentDescription="Back to the previous question"
-            app:navigationIcon="@drawable/ic_baseline_chevron_left_24"
-            app:title="Question 1"
-            app:menu="@menu/main_menu"/>
-
-    </com.google.android.material.appbar.AppBarLayout>
 
     <ScrollView
         android:id="@+id/scroll"
@@ -67,6 +71,7 @@
         app:layout_constraintBottom_toTopOf="@id/previous_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="?attr/actionBarSize"
         app:layout_constraintTop_toBottomOf="@id/appBarLayout">
 
         <androidx.constraintlayout.widget.ConstraintLayout

@@ -25,8 +25,6 @@ class ViewPagerRecyclerAdapter(
 
     //Store values here for don't call values() every time
     private val types = ColorViewType.values()
-    //Helper for menu settings
-    private val menuManager = MenuManager()
 
     //listeners
     private var onChecked: ((checkedPosition: Int, page: Int) -> Unit)? = null
@@ -50,8 +48,6 @@ class ViewPagerRecyclerAdapter(
     }
 
 
-
-
     override fun getItemViewType(position: Int): Int =
         when (position) {
             0 -> ColorViewType.FIRST.ordinal
@@ -68,7 +64,6 @@ class ViewPagerRecyclerAdapter(
         fun bind(position: Int) {
             val currentQuestion = quizData?.keys?.toList()?.get(position)
             with(bindingItem) {
-                menuManager.handleMenuItemClick(bindingItem.toolbar, bindingItem.toolbar.context)
                 /**
                  * set views
                  */
@@ -79,7 +74,7 @@ class ViewPagerRecyclerAdapter(
                 optionFour.text = quizData?.get(currentQuestion)?.get(3)
                 optionFive.text = quizData?.get(currentQuestion)?.get(4)
 
-                toolbar.title = "Question ${position + 1}"
+                tvPage.text = "Question ${position + 1}"
                 //if there is haven't checked buttons
                 if (radioGroup.checkedRadioButtonId == -1) {
                     nextButton.isEnabled = false
@@ -88,7 +83,6 @@ class ViewPagerRecyclerAdapter(
                 //handle radio buttons changes
                 radioGroup.setOnCheckedChangeListener { group, checkedId ->
                     nextButton.isEnabled = true
-                    //the passed lambda calls
                     onChecked?.invoke(
                         group.indexOfChild(group.findViewById(checkedId)),
                         position
@@ -101,19 +95,15 @@ class ViewPagerRecyclerAdapter(
                 previousButton.setOnClickListener {
                     onNavigate?.invoke(position, false)
                 }
-                toolbar.setNavigationOnClickListener {
-                    onNavigate?.invoke(position, false)
-                }
-                //last screen settings
+                //LAST screen settings
                 if (position == itemCount - 1) {
                     nextButton.text = "submit"
                     nextButton.setOnClickListener {
                         onSubmit?.invoke()
                     }
                 }
-                //first screen settings
+                //FIRST screen settings
                 if (position == 0) {
-                    toolbar.navigationIcon = null
                     previousButton.isEnabled = false
                 }
 

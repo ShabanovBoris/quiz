@@ -1,21 +1,19 @@
 package com.rsschool.quiz.ui
 
+import android.content.Intent
 import android.os.Bundle
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.rsschool.quiz.MainViewModel
 import com.rsschool.quiz.R
 import com.rsschool.quiz.Result
 import com.rsschool.quiz.databinding.FragmentResultBinding
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 
@@ -35,20 +33,44 @@ class ResultFragment : BottomSheetDialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         viewModel.state
-            .onEach (::getResult)
+            .onEach(::getResult)
             .launchIn(lifecycleScope)
+
+
+        binding.repeat.setOnClickListener {
+            findNavController().navigate(R.id.action_resultFragment_to_launchFragment)
+            viewModel.clearStatistic()
+        }
+        binding.bShare.setOnClickListener {
+            Intent(Intent.ACTION_SEND).apply {
+                putExtra(Intent.EXTRA_TEXT, viewModel.getStatistic())
+                type = "*/*"
+
+                if (resolveActivity(requireActivity().packageManager) != null) {
+                    startActivity(Intent.createChooser(this, "Share your progress, where you want"))
+                }
+            }
+        }
+        binding.bQuit.setOnClickListener {
+            requireActivity().finish()
+        }
     }
 
-    private fun getResult(result: Result){
-        when(result){
-            is Result.EmptyState -> { }
+    private fun getResult(result: Result) {
+        when (result) {
+            is Result.EmptyState -> {
+            }
             is Result.Error -> {
-                Toast.makeText(requireContext(), "There was something wrong", Toast.LENGTH_SHORT).show() }
+                Toast.makeText(requireContext(), "There was something wrong", Toast.LENGTH_SHORT)
+                    .show()
+            }
             is Result.Success -> {
-                binding.tvResults.text =
-                    result.resultMap.values
-                        .filter { it == 1 }
-                        .size.toString()
+                val points = result.resultMap.values
+                    .filter { it == 1 }
+                    .size.toString()
+
+                binding.tvResults.text = "You earn $points/${result.resultMap.values.size} !"
+
             }
         }
     }

@@ -16,5 +16,12 @@
         android:id="@+id/resultFragment"
         android:name="com.rsschool.quiz.ui.ResultFragment"
         android:label="fragment_result"
-        tools:layout="@layout/fragment_result" />
+        tools:layout="@layout/fragment_result" >
+        <action
+            android:id="@+id/action_resultFragment_to_launchFragment"
+            app:destination="@id/launchFragment"
+            app:popUpTo="@id/nav_graph.xml"
+            app:popUpToInclusive="true" />
+    </dialog>
+
 </navigation>

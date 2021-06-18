@@ -6,6 +6,13 @@
     android:layout_height="match_parent"
     >
 
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline1"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="@dimen/statusbar_placeholder_height"/>
+
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/view_pager"
@@ -14,20 +21,40 @@
         />
 
     <com.rsschool.quiz.ui.utils.NonTouchableTabLayout
-        android:layout_marginTop="88dp"
-        android:id="@+id/table_layout"
+        android:id="@+id/tab_layout"
         android:layout_width="match_parent"
         android:layout_height="?android:attr/actionBarSize"
-        app:tabMode="fixed"
         android:background="@android:color/transparent"
-        app:tabIndicatorGravity="stretch"
-        app:tabIndicatorAnimationMode="elastic"
-        app:tabSelectedTextColor="?attr/colorOnPrimary"
-        app:tabIndicatorColor="?attr/colorSecondaryVariant"
-        app:tabIconTint="@color/white"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/appBarLayout"
+        app:tabIconTint="@color/white"
         app:tabIndicator="@drawable/ic_ball"
-        />
+        app:tabIndicatorAnimationMode="elastic"
+        app:tabIndicatorColor="?attr/colorSecondaryVariant"
+        app:tabIndicatorGravity="stretch"
+        app:tabMode="fixed"
+        app:tabSelectedTextColor="?attr/colorOnPrimary" />
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:elevation="24dp"
+        android:background="@android:color/transparent"
+        app:layout_constraintTop_toBottomOf="@id/guideline1"
+        >
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:navigationContentDescription="Back to the previous question"
+            app:navigationIcon="@drawable/ic_baseline_chevron_left_24"
+            app:menu="@menu/main_menu"/>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

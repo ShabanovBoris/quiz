@@ -9,20 +9,78 @@
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/appCompatImageView"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="400dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/b_quit"
         app:srcCompat="@drawable/congrats" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/tv_results"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline2"
+        android:fontFamily="sans-serif-black"
+        android:padding="16dp"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline3"
+        android:textColor="@color/black"
+        app:fontFamily="sans-serif-medium"
         app:layout_constraintEnd_toEndOf="@+id/appCompatImageView"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="Sample"
-        android:textColor="@color/black"/>
+        tools:text="Sample" />
+
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/repeat"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:background="@android:color/transparent"
+        android:foreground="@drawable/stroke"
+        android:text="REPEAT"
+        android:textSize="32dp"
+        app:rippleColor="@color/secondaryColor_600"
+        android:layout_marginTop="16dp"
+        app:icon="@drawable/ic_replay"
+        app:iconSize="32dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_results" />
+
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/b_share"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:background="@android:color/transparent"
+        android:foreground="@drawable/stroke"
+        app:rippleColor="@color/secondaryColor_600"
+        android:text="SHARE"
+        android:textSize="32dp"
+
+        app:icon="@drawable/ic_share"
+        app:iconSize="32dp"
+        android:layout_marginVertical="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/repeat" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/b_quit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:background="@android:color/transparent"
+        android:foreground="@drawable/stroke"
+        android:text="QUIT"
+        app:rippleColor="@color/secondaryColor_600"
+        android:textSize="32dp"
+        android:layout_marginVertical="16dp"
+        app:icon="@drawable/ic_reply"
+        app:iconSize="32dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/b_share" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

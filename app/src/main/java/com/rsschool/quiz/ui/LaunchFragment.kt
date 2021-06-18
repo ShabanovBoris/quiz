@@ -4,11 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.viewpager2.widget.ViewPager2
+import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.rsschool.quiz.MainViewModel
 import com.rsschool.quiz.R
@@ -16,6 +17,7 @@ import com.rsschool.quiz.databinding.FragmentLaunchBinding
 import com.rsschool.quiz.databinding.FragmentQuizBinding
 import com.rsschool.quiz.ui.pager.QuizBundle
 import com.rsschool.quiz.ui.pager.ViewPagerRecyclerAdapter
+import com.rsschool.quiz.ui.utils.MenuManager
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 
@@ -43,12 +45,15 @@ class LaunchFragment : Fragment() {
         viewModel.data
             .onEach(::updatePager)
             .launchIn(lifecycleScope)
+
+
     }
 
 
     private fun setUpViewPager() {
-        val tableLayout = binding.tableLayout
+        val tabLayout = binding.tabLayout
         val viewPager = binding.viewPager
+        var viewPagerPosition = 0
         //tab names
         val names = mapOf(
             0 to "First",
@@ -72,14 +77,37 @@ class LaunchFragment : Fragment() {
                 false -> viewPager.setCurrentItem(currentPosition - 1, true)
             }
         }
+        //align adapter to viewpager
+        viewPager.adapter = adapter
+
 
         //disable all interactions
         viewPager.isUserInputEnabled = false
-        tableLayout.shouldEnableTabs = false
+        tabLayout.shouldEnableTabs = false
+        MenuManager().handleMenuItemClick(binding)
 
-        viewPager.adapter = adapter
 
-        TabLayoutMediator(tableLayout, viewPager) { tab, pos ->
+
+        //menu navigation item click listener
+        binding.toolbar.setNavigationOnClickListener {
+            viewPager.setCurrentItem(viewPagerPosition - 1, true)
+        }
+        //hide navigation icon on first screen
+        viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+            val icon = binding.toolbar.navigationIcon
+            override fun onPageSelected(position: Int) {
+                viewPagerPosition = position
+                if (position.equals(0)) {
+                    binding.toolbar.navigationIcon = null
+                } else {
+                    binding.toolbar.navigationIcon = icon
+                }
+            }
+        })
+
+
+
+        TabLayoutMediator(tabLayout, viewPager) { tab, pos ->
             tab.text = names[pos]
         }.attach()
     }

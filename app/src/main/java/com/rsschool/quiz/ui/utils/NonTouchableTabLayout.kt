@@ -13,6 +13,11 @@ class NonTouchableTabLayout @JvmOverloads constructor(
 ) : TabLayout(context, attrs, defaultAttrs) {
 
      var shouldEnableTabs: Boolean? = null
+        set(value)  {
+            field = value
+            invalidate()
+            requestLayout()
+        }
 
 
 
