@@ -50,6 +50,7 @@ class MainViewModel : ViewModel() {
 
     fun clearStatistic() {
         statistic = ""
+        _currentAnswers.clear()
     }
 }
 
