@@ -8,6 +8,7 @@ import android.view.View
 import android.widget.FrameLayout
 import android.widget.Toast
 import androidx.core.content.edit
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
 import com.rsschool.quiz.R
@@ -56,7 +57,7 @@ class MenuManager {
                         onUncheckSwipe(it)
                     } else {
                         onCheckSwipe(it)
-                        showSnack(binding.root)
+                        showSnack(binding)
                     }
                 }
                 R.id.clickable -> {
@@ -64,7 +65,7 @@ class MenuManager {
                         onUncheckClicks(it)
                     } else {
                         onCheckClicks(it)
-                        showSnack(binding.root)
+                        showSnack(binding)
                     }
                 }
                 else -> throw IllegalArgumentException("wrong id onClick menu item")
@@ -103,11 +104,14 @@ class MenuManager {
         prefs.edit { putBoolean("click", false) }
         mBinding.tabLayout.shouldEnableTabs = false
     }
-    private fun showSnack(viewC:View){
-        Snackbar.make(viewC, "This feature don't allowed by task, also bugs can appear",
-            Snackbar.LENGTH_INDEFINITE).apply {
-            setAction("Ok, I'm agree"){}
-            view.translationY = -100F
+    private fun showSnack(binding: FragmentLaunchBinding){
+        MaterialAlertDialogBuilder(binding.root.context).apply {
+            setTitle("Warning")
+            setMessage("\"This feature don't allowed by task, also bugs can appear\"")
+            setPositiveButton("Ok I'm agree"){ dialog, which ->
+
+            }
         }.show()
     }
+
 }
