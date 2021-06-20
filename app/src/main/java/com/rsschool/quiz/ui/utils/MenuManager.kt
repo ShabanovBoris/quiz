@@ -2,18 +2,17 @@ package com.rsschool.quiz.ui.utils
 
 import android.content.Context
 import android.content.SharedPreferences
-import android.view.Gravity
 import android.view.MenuItem
-import android.view.View
-import android.widget.FrameLayout
 import android.widget.Toast
-import androidx.core.content.edit
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.google.android.material.snackbar.BaseTransientBottomBar
-import com.google.android.material.snackbar.Snackbar
 import com.rsschool.quiz.R
 import com.rsschool.quiz.databinding.FragmentLaunchBinding
-import java.time.Duration
+
+
+/**
+ *  Feature was comment cause angry reviewers   =)
+ *  uncomment for fun
+ */
 
 /**
  * manage menu setting that responsible for scrolling
@@ -57,7 +56,7 @@ class MenuManager {
                         onUncheckSwipe(it)
                     } else {
                         onCheckSwipe(it)
-                        showSnack(binding)
+                        showDialog(binding)
                     }
                 }
                 R.id.clickable -> {
@@ -65,7 +64,7 @@ class MenuManager {
                         onUncheckClicks(it)
                     } else {
                         onCheckClicks(it)
-                        showSnack(binding)
+                        showDialog(binding)
                     }
                 }
                 else -> throw IllegalArgumentException("wrong id onClick menu item")
@@ -78,40 +77,45 @@ class MenuManager {
 
 
     private fun onCheckSwipe(item: MenuItem) {
-        isSwipeable = true
-        item.isChecked = true
-        prefs.edit { putBoolean("swipe", true) }
-        mBinding.viewPager.isUserInputEnabled = true
+//        isSwipeable = true
+//        item.isChecked = true
+//        prefs.edit { putBoolean("swipe", true) }
+//        mBinding.viewPager.isUserInputEnabled = true
+
+
+
+        //delete then
+        Toast.makeText(mBinding.root.context, "Uncomment MenuManager", Toast.LENGTH_LONG).show()
     }
 
     private fun onUncheckSwipe(item: MenuItem) {
-        isSwipeable = false
-        item.isChecked = false
-        prefs.edit { putBoolean("swipe", false) }
-        mBinding.viewPager.isUserInputEnabled = false
+//        isSwipeable = false
+//        item.isChecked = false
+//        prefs.edit { putBoolean("swipe", false) }
+//        mBinding.viewPager.isUserInputEnabled = false
     }
 
     private fun onCheckClicks(item: MenuItem) {
-        isClickable = true
-        item.isChecked = true
-        prefs.edit { putBoolean("click", true) }
-        mBinding.tabLayout.shouldEnableTabs = true
+//        isClickable = true
+//        item.isChecked = true
+//        prefs.edit { putBoolean("click", true) }
+//        mBinding.tabLayout.shouldEnableTabs = true
     }
 
     private fun onUncheckClicks(item: MenuItem) {
-        isClickable = false
-        item.isChecked = false
-        prefs.edit { putBoolean("click", false) }
-        mBinding.tabLayout.shouldEnableTabs = false
+//        isClickable = false
+//        item.isChecked = false
+//        prefs.edit { putBoolean("click", false) }
+//        mBinding.tabLayout.shouldEnableTabs = false
     }
-    private fun showSnack(binding: FragmentLaunchBinding){
-        MaterialAlertDialogBuilder(binding.root.context).apply {
-            setTitle("Warning")
-            setMessage("\"This feature don't allowed by task, also bugs can appear\"")
-            setPositiveButton("Ok I'm agree"){ dialog, which ->
-
-            }
-        }.show()
+    private fun showDialog(binding: FragmentLaunchBinding){
+//        MaterialAlertDialogBuilder(binding.root.context).apply {
+//            setTitle("Warning")
+//            setMessage("\"This feature don't allowed by task, also bugs can appear\"")
+//            setPositiveButton("Ok I'm agree"){ dialog, which ->
+//
+//            }
+//        }.show()
     }
 
 }

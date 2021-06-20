@@ -14,8 +14,8 @@ class SimpleDataSource {
         "手には何本の指がありますか ?" to listOf<String>(
             "五", "二", "三", "WTF?", "四"
         ),
-        "Will you mark 100 after testing for this app?" to listOf<String>(
-            "Absolutely!", "Fu*k you", "Try more", "No...", "pineapple"
+        "2 + 2 * 2?" to listOf<String>(
+            "6", "222", "8", "Is that question?", "pineapple"
         )
     )
 

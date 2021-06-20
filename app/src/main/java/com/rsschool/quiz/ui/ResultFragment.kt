@@ -16,12 +16,14 @@ import com.rsschool.quiz.Result
 import com.rsschool.quiz.databinding.FragmentResultBinding
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import java.util.zip.Inflater
 
 class ResultFragment : BottomSheetDialogFragment() {
     private val viewModel: MainViewModel by activityViewModels()
 
     private var _binding: FragmentResultBinding? = null
     private val binding get() = _binding!!
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
