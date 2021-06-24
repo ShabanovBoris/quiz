@@ -1,5 +1,6 @@
 package com.rsschool.quiz.ui
 
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -34,6 +35,12 @@ class ResultFragment : BottomSheetDialogFragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        //prevent dismiss dialog
+        dialog?.setCancelable(false)
+        dialog?.setCanceledOnTouchOutside(false)
+        isCancelable = false
+
+
         viewModel.state
             .onEach(::getResult)
             .launchIn(lifecycleScope)
@@ -58,6 +65,8 @@ class ResultFragment : BottomSheetDialogFragment() {
         }
     }
 
+
+
     private fun getResult(result: Result) {
         when (result) {
             is Result.EmptyState -> {
@@ -76,6 +85,7 @@ class ResultFragment : BottomSheetDialogFragment() {
             }
         }
     }
+
 
 
     override fun onDestroyView() {

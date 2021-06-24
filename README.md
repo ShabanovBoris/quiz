@@ -1,3 +1,5 @@
+<img alt="quiz app" src="/img/comment.jpg" />
+
 # rsschool2021-Android-task-quiz
 Rolling Scopes School - Android 2021 - Stage 1 - Task 2 - Quiz
 

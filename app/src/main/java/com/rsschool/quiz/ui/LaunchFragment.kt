@@ -10,11 +10,9 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
-import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.rsschool.quiz.MainViewModel
 import com.rsschool.quiz.R
-import com.rsschool.quiz.Result
 import com.rsschool.quiz.databinding.FragmentLaunchBinding
 import com.rsschool.quiz.databinding.FragmentQuizBinding
 import com.rsschool.quiz.ui.pager.QuizBundle
@@ -71,13 +69,16 @@ class LaunchFragment : Fragment() {
             viewModel.putAnswer(page, checkedPosition)
         }
         adapter.addOnSubmitListener {
-            if (viewModel.currentAnswers.size < viewModel.data.replayCache[0].size){
-                Toast.makeText(requireContext(),
-                    "Aha! Your intention to abuse app naive developers was intercept!", Toast.LENGTH_LONG).show()
-            }else{
+            if (viewModel.currentAnswers.size < viewModel.data.replayCache[0].size) {
+                Toast.makeText(
+                    requireContext(),
+                    "Aha! Your intention to abuse app naive developers was intercept!",
+                    Toast.LENGTH_LONG
+                ).show()
+            } else {
                 findNavController().navigate(R.id.action_launchFragment_to_resultFragment)
             }
-           }
+        }
         adapter.addOnNavigateListener { currentPosition, isNext ->
             when (isNext) {
                 true -> viewPager.setCurrentItem(currentPosition + 1, true)
@@ -92,7 +93,6 @@ class LaunchFragment : Fragment() {
         viewPager.isUserInputEnabled = false
         tabLayout.shouldEnableTabs = false
         MenuManager().handleMenuItemClick(binding)
-
 
 
         //menu navigation item click listener
