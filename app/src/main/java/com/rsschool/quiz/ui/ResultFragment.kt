@@ -1,5 +1,6 @@
 package com.rsschool.quiz.ui
 
+import android.app.Dialog
 import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
@@ -7,9 +8,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatDialog
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.rsschool.quiz.MainViewModel
 import com.rsschool.quiz.R
@@ -25,14 +28,28 @@ class ResultFragment : BottomSheetDialogFragment() {
     private var _binding: FragmentResultBinding? = null
     private val binding get() = _binding!!
 
+    private var isQuitPressed = false
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentResultBinding.inflate(inflater, container, false)
-        return binding.root
-    }
+    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog =
+        object : BottomSheetDialog(requireContext(),theme) {
+            override fun onBackPressed() {
+                if (!isQuitPressed){
+                    isQuitPressed = true
+                    Toast.makeText(requireContext(), "Press back one more time, if you want to quit", Toast.LENGTH_LONG).show()
+                }else{
+                    requireActivity().finish()
+                }
+            }
+        }
+
+        override fun onCreateView(
+            inflater: LayoutInflater, container: ViewGroup?,
+            savedInstanceState: Bundle?
+        ): View {
+            _binding = FragmentResultBinding.inflate(inflater, container, false)
+            return binding.root
+        }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         //prevent dismiss dialog
@@ -64,7 +81,6 @@ class ResultFragment : BottomSheetDialogFragment() {
             requireActivity().finish()
         }
     }
-
 
 
     private fun getResult(result: Result) {
